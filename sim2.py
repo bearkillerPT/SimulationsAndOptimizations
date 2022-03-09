@@ -16,7 +16,7 @@ class Hospital:
         self.clients_statistics = {}
         self.clients_done = 0
         # state variables
-        self.server_status = 'idle'
+        self.server_status = ['idle', 'idle']
         self.num_in_q = 0
         self.time_last_event = 0.0
 
@@ -49,16 +49,19 @@ class Hospital:
         self.sim_time = min_time_next_event
 
     def arrive(self):
-        self.time_next_event['arrive'] = self.sim_time + random.uniform(0, 10)
+        self.time_next_event['arrive'] = self.sim_time + random.uniform(0, 5)
 
-        if self.server_status == 'busy':
+        if all([x == 'busy' for x in self.server_status]):
             self.time_arrival.append(self.sim_time)
             self.client_ids_queue.append(self.client_id)
             self.client_id += 1
         else:
             self.num_custs_delayed += 1
-            self.server_status = 'busy'
-            self.time_next_event['depart'] = self.sim_time + random.uniform(0, 5)
+            for server_status in self.server_status:
+                if server_status == 'idle':
+                    server_status = 'busy'
+                    break
+            self.time_next_event['depart'] = self.sim_time + random.uniform(0, 10)
         self.size_of_queue.append(len(self.time_arrival))
         if self.debug:
             print('arrive event at {0:5.2f} size of queue is {1:2d}'.format(
@@ -66,7 +69,8 @@ class Hospital:
     def depart(self):
 
         if len(self.time_arrival) == 0:
-            self.server_status = 'idle'
+            for server_status in self.server_status:
+                server_status = 'idle'
             self.time_next_event['depart'] = 1e10
         else:
             self.num_custs_delayed += 1
@@ -111,7 +115,6 @@ class Hospital:
             avg_delay = sum(self.clients_statistics.values())/clients
         avg_queue_size = sum(self.size_of_queue)/len(self.size_of_queue)
         server_freq = self.clients_done/self.sim_time
-        
         if not os.path.exists('stats'):
             os.makedirs('stats')
         fp = open(filename, 'w')
