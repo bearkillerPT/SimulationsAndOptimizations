@@ -10,7 +10,7 @@ To run multiple tests and get the statistics run:
 python3 sim1.py n_tests
 python3 sim2.py n_tests
 ```
-After this a folder named stats containing each individual simulation states!
+After this a folder named stats containing each individual simulation states is created!
 Finally run:
 ```
 python3 stats.py n_tests
