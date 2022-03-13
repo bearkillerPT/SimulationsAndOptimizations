@@ -49,7 +49,7 @@ class Hospital:
         self.sim_time = min_time_next_event
 
     def arrive(self):
-        self.time_next_event['arrive'] = self.sim_time + random.uniform(0, 5)
+        self.time_next_event['arrive'] = self.sim_time + random.uniform(0, 10)
 
         if all([x == 'busy' for x in self.server_status]):
             self.time_arrival.append(self.sim_time)
@@ -57,20 +57,20 @@ class Hospital:
             self.client_id += 1
         else:
             self.num_custs_delayed += 1
-            for server_status in self.server_status:
+            for index, server_status in enumerate(self.server_status):
                 if server_status == 'idle':
-                    server_status = 'busy'
+                    self.server_status[index] = 'busy'
                     break
-            self.time_next_event['depart'] = self.sim_time + random.uniform(0, 10)
+            self.time_next_event['depart'] = self.sim_time + random.uniform(0, 5)
         self.size_of_queue.append(len(self.time_arrival))
         if self.debug:
             print('arrive event at {0:5.2f} size of queue is {1:2d}'.format(
             self.sim_time, len(self.time_arrival)))
     def depart(self):
-
         if len(self.time_arrival) == 0:
-            for server_status in self.server_status:
-                server_status = 'idle'
+            for index, server_status in enumerate(self.server_status):
+                if server_status == 'busy':
+                    self.server_status[index] = 'idle'
             self.time_next_event['depart'] = 1e10
         else:
             self.num_custs_delayed += 1
