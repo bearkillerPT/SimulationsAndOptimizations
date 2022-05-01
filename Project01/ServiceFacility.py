@@ -102,24 +102,29 @@ class ServiceFacility:
                self.sim_time, len(self.time_arrival_s1)))
 
     def depart_s1(self):
-        s2_arrival_time = self.sim_time + random.expovariate(10/7)
+        self.time_next_event_s1['depart'] = 1e10
         if len(self.time_arrival_s1) == 0:
             self.server1_status = 'idle'
-            self.time_next_event_s1['depart'] = 1e10
+            
         else:
             self.num_custs_delayed_s1 += 1
-            self.time_next_event_s1['depart'] = s2_arrival_time
             client_start_time = self.time_arrival_s1.pop(0)
             current_client_id = self.client_ids_queue_s1.pop(0)
+            client_end_time = self.sim_time + \
+                random.expovariate(10/7)
+            self.time_next_event_s1['depart'] = client_end_time
             self.clients_statistics_s1[current_client_id] = self.time_next_event_s1['depart'] - \
                 client_start_time
+        self.time_next_event_s2['arrive'] = self.sim_time
         if self.debug:
             print('depart event at {0:5.2f} size of queue is {1:2d}'.format(
                 self.sim_time, len(self.time_arrival_s1)))
         self.clients_done_s1 += 1
-        self.time_next_event_s2['arrive'] = s2_arrival_time
+       
+        
 
     def arrive_s2(self):
+        self.time_next_event_s2['arrive'] = 1e10
 
         if self.server2_status == 'busy':
             self.time_arrival_s2.append(self.sim_time)
@@ -136,16 +141,18 @@ class ServiceFacility:
                 self.sim_time, len(self.time_arrival_s2)))
 
     def depart_s2(self):
-
+        self.time_next_event_s2['depart'] = 1e10
         if len(self.time_arrival_s2) == 0:
             self.server2_status = 'idle'
-            self.time_next_event_s2['depart'] = 1e10
+            
+
+
         else:
             self.num_custs_delayed_s2 += 1
-            self.time_next_event_s2['depart'] = self.sim_time + \
-                random.expovariate(10/9)
             client_start_time = self.time_arrival_s2.pop(0)
             current_client_id = self.client_ids_queue_s2.pop(0)
+            self.time_next_event_s2['depart'] = self.sim_time + \
+                random.expovariate(10/9)
             self.clients_statistics_s2[current_client_id] = self.time_next_event_s2['depart'] - \
                 client_start_time
         if self.debug:
