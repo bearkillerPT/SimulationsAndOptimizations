@@ -54,19 +54,17 @@ class ServiceFacility:
 
         next_event_type = ''
         self.next_event_type_s1 = ''
-        self.next_event_type_s2 = ''
-
         for e in self.time_next_event_s1:
             if self.time_next_event_s1[e] < min_time_next_event_s1:
                 min_time_next_event_s1 = self.time_next_event_s1[e]
                 next_event_type = e
 
         self.next_event_type_s2 = ''
-
         for e in self.time_next_event_s2:
             if self.time_next_event_s2[e] < min_time_next_event_s2:
                 min_time_next_event_s2 = self.time_next_event_s2[e]
-                next_event_type = e
+                if min_time_next_event_s2 < min_time_next_event_s1:
+                    next_event_type = e
 
         min_time_next_event = 0
 
@@ -76,7 +74,6 @@ class ServiceFacility:
         else:
             self.next_event_type_s2 = next_event_type
             min_time_next_event = min_time_next_event_s2
-
         if self.next_event_type_s1 == '' and self.next_event_type_s2 == '':
             print('There is no event to be performed at the time', self.sim_time)
             sys.exit()
@@ -105,7 +102,6 @@ class ServiceFacility:
         self.time_next_event_s1['depart'] = 1e10
         if len(self.time_arrival_s1) == 0:
             self.server1_status = 'idle'
-            
         else:
             self.num_custs_delayed_s1 += 1
             client_start_time = self.time_arrival_s1.pop(0)
