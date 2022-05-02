@@ -17,7 +17,6 @@ class Hospital:
         self.clients_done = 0
         # state variables
         self.server_status = 'idle'
-        self.num_in_q = 0
         self.time_last_event = 0.0
 
         # statistics
