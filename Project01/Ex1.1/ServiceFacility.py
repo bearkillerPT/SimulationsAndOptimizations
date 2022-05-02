@@ -207,21 +207,34 @@ class ServiceFacility:
         print(server_freq)
 
     def save_stats(self, filename):
-        clients = len(self.clients_statistics.keys())
-        avg_delay = 0
-        if(clients):
-            avg_delay = sum(self.clients_statistics.values())/clients
-        avg_queue_size = sum(self.size_of_queue)/len(self.size_of_queue)
-        server_freq = self.clients_done/self.sim_time
+        clients_s1 = len(self.clients_statistics_s1.keys())
+        avg_delay_s1 = 0
+        if(clients_s1):
+            avg_delay_s1 = sum(self.clients_statistics_s1.values())/clients_s1
+        avg_queue_size_s1 = sum(self.size_of_queue_s1)/len(self.size_of_queue_s1)
+        server_freq_s1 = self.clients_done_s1/self.sim_time
+        clients_s2 = len(self.clients_statistics_s2.keys())
+        avg_delay_s2 = 0
+        if(clients_s2):
+            avg_delay_s2 = sum(self.clients_statistics_s2.values())/clients_s2
+        avg_queue_size_s2 = sum(self.size_of_queue_s2)/len(self.size_of_queue_s2)
+        server_freq_s2 = self.clients_done_s2/self.sim_time
 
         if not os.path.exists('stats'):
             os.makedirs('stats')
         fp = open(filename, 'w')
         fp.write(
             json.dumps({
-                "avg_delay": avg_delay,
-                "avg_queue_size": avg_queue_size,
-                "server_freq": server_freq
+                "server1": {
+                "avg_delay": avg_delay_s1,
+                "avg_queue_size": avg_queue_size_s1,
+                "server_freq": server_freq_s1
+                },
+                "server2": {
+                "avg_delay": avg_delay_s2,
+                "avg_queue_size": avg_queue_size_s2,
+                "server_freq": server_freq_s2
+                }
             }))
         # main
 
