@@ -91,8 +91,7 @@ class ServiceFacility:
         else:
             self.num_custs_delayed_s1 += 1
             self.server1_status = 'busy'
-            self.time_next_event_s1['depart'] = self.sim_time + \
-                random.expovariate(10/7)
+            self.time_next_event_s1['depart'] = self.sim_time + random.expovariate(10/7)
         self.size_of_queue_s1.append(len(self.time_arrival_s1))
         if self.debug:
            print('arrive event at {0:5.2f} size of queue is {1:2d}'.format(
@@ -106,9 +105,7 @@ class ServiceFacility:
             self.num_custs_delayed_s1 += 1
             client_start_time = self.time_arrival_s1.pop(0)
             current_client_id = self.client_ids_queue_s1.pop(0)
-            client_end_time = self.sim_time + \
-                random.expovariate(10/7)
-            self.time_next_event_s1['depart'] = client_end_time
+            self.time_next_event_s1['depart'] = self.sim_time + random.expovariate(10/7)
             self.clients_statistics_s1[current_client_id] = self.time_next_event_s1['depart'] - \
                 client_start_time
         self.time_next_event_s2['arrive'] = self.sim_time
