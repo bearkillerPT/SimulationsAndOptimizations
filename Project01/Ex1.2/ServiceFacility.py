@@ -158,8 +158,10 @@ class ServiceFacility:
         self.clients_done_s2 += 1
 
     def run(self, run_time):
+        event_counter = 0
         self.run_time = run_time
         while self.timing():
+            event_counter += 1
             if self.next_event_type_s1 != '':
                 if self.debug:
                     print("Server1")
@@ -175,6 +177,7 @@ class ServiceFacility:
 
                 elif self.next_event_type_s2 == 'depart':
                     self.depart_s2()
+        self.total_events = event_counter
 
     def show_stats_s1(self):
         print("*\nServer 1")
@@ -234,7 +237,8 @@ class ServiceFacility:
                 "avg_delay": avg_delay_s2,
                 "avg_queue_size": avg_queue_size_s2,
                 "server_freq": server_freq_s2
-                }
+                },
+                "EventsCount" : self.total_events
             }))
         # main
 

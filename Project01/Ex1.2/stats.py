@@ -24,6 +24,7 @@ def main():
     delays_s2 = []
     queue_sizes_s2 = []
     server_freqs_s2 = []
+    total_events = []
     for i in range(int(sys.argv[1])):
         try:
             fp = open("stats/stat" + str(i) + ".json")
@@ -34,6 +35,7 @@ def main():
             delays_s2.append(current_stats["server2"]["avg_delay"])
             queue_sizes_s2.append(current_stats["server2"]["avg_queue_size"])
             server_freqs_s2.append(current_stats["server2"]["server_freq"])
+            total_events.append(current_stats["EventsCount"])
         except Exception as e:
             print(e)
     print("RESULTS AFTER " + sys.argv[1] + " RUNS\n*\nServer 1\n*")
@@ -50,6 +52,8 @@ def main():
     print_stat(stats_stat(queue_sizes_s2))
     print("Server Frequencies:")
     print_stat(stats_stat(server_freqs_s2))
+    print("Total Events:")
+    print_stat(stats_stat(total_events))
 
 
 if __name__ == "__main__":
