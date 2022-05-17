@@ -1,0 +1,1 @@
+{"server1": {"avg_delay": 5.343449804026069, "avg_queue_size": 6.1880781089414185, "server_freq": 1.1337245440181158}, "server2": {"avg_delay": 0, "avg_queue_size": 0.0, "server_freq": 1.1327247869246255}}
