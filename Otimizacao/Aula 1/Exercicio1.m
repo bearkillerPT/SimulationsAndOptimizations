@@ -8,15 +8,18 @@ servers= randperm(100,8);
 % Computing the average shortest path length from each
 % node to its closest server node:
 t=tic
-time=20
-savefile=fopen('Stats.txt','w');
+time=60*15;
+min_avsp = 1000000;
+min_servers=[];
 while toc(t)<time
     servers= randperm(100,8);
-    fprintf(savefile, '%d, ', servers);
     AvSP= AverageSP(G,servers);
-    fprintf(savefile, ':%f\n', AvSP);
+    if(AvSP < min_avsp)
+        min_avsp = AvSP
+        min_servers = servers
+    end
 end
-fclose(savefile);
+
 
 
 
