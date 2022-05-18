@@ -46,7 +46,7 @@ class Simulation:
 
 
 def print_usage():
-    print("Usage:\n\tpython3 EuclidianSim.py z0 v0 m g u delta_t total_t") 
+    print("Usage:\n\tpython3 RK4.py z0 v0 m g u delta_t total_t") 
 
 
 
