@@ -1,0 +1,10 @@
+current_best_n= [5    36    18]
+search_time= 60
+[min_ConNP,min_servers] = BestHCConNP(search_time,current_best_n)
+%search_time= 30
+%[min_ConNP,min_servers] = BestHCConNP(search_time,current_best_n)
+%current_best_n= [ 15    28    27    20    83    64    59    65] 
+%search_time= 5
+%[min_ConNP,min_servers] = BestHCConNP(search_time,current_best_n)
+%search_time= 30
+%[min_ConNP,min_servers] = BestHCConNP(search_time,current_best_n)

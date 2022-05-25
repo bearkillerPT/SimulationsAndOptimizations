@@ -1,0 +1,10 @@
+nodes=8
+search_time= 5
+[min_connp,min_servers] = BestRandConNP(search_time,nodes)
+search_time= 30
+[min_connp,min_servers] = BestRandConNP(search_time,nodes)
+nodes=10
+search_time= 5
+[min_connp,min_servers] = BestRandConNP(search_time,nodes)
+search_time= 30
+[min_connp,min_servers] = BestRandConNP(search_time,nodes)
