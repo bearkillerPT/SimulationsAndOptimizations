@@ -1,10 +1,3 @@
-function [neighbors] = def1Neighbors(G,servers)
-N = numnodes(G);
-neighbors = setdiff(1:N,servers);
-end
-function [neighbors] = def2Neighbors(G,new_servers, candidate)
-neighbors = setdiff(neighbors(G,candidate),new_servers);
-end
 function [min_ConNP,min_servers] = BestSAHCConNP(search_time,current_best_n, neighbor_type)
 L= load('L2.txt');
 G=graph(L);
@@ -31,4 +24,11 @@ end
 min_servers=servers;
 end
 
+function [neighbors] = def1Neighbors(G,servers)
+N = numnodes(G);
+neighbors = setdiff(1:N,servers);
+end
+function [neighbors] = def2Neighbors(G,new_servers, candidate)
+neighbors = setdiff(neighbors(G,candidate),new_servers);
+end
 
