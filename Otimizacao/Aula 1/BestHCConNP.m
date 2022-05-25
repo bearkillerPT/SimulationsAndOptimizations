@@ -9,7 +9,7 @@ min_ConNP = ConnectedNP(G,current_best_n);
 while toc(t)<search_time
     others_connp= setdiff(1:N,servers);
     servers_connp= [servers(randperm(n,n-1)) others_connp(randperm(N-n,1))];
-    ConNP= ConnectedNP(G,servers);
+    ConNP= ConnectedNP(G,servers_connp);
     if(ConNP < min_ConNP)
         min_ConNP = ConNP;
         servers= servers_connp;
