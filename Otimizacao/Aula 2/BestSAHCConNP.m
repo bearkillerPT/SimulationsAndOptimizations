@@ -1,4 +1,5 @@
-function [min_ConNP,min_servers] = BestSAHCConNP(search_time,current_best_n, neighbor_type)
+function [min_ConNP,min_servers,execution_time] = BestSAHCConNP(current_best_n, neighbor_type)
+t=tic
 L= load('L2.txt');
 G=graph(L);
 N = numnodes(G);
@@ -29,6 +30,7 @@ while improved
     end
 end
 min_servers=servers;
+execution_time=toc(t)
 end
 
 function [neighbors] = def1Neighbors(G,servers)
