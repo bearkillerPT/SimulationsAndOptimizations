@@ -1,10 +1,4 @@
 neighbor_type = "def1Neighbors"
-current_best_n= [ 15    28    27    20    83    64    59    65] 
-[min_ConNP,min_servers,execution_time] = BestSAHCConNP(current_best_n, neighbor_type)
-current_best_n= [5    36    19    11    62    83    51    21    67    66]
-[min_ConNP,min_servers,execution_time] = BestSAHCConNP(current_best_n, neighbor_type)
+[min_ConNP,min_servers,execution_time] = BestSAHCConNP(neighbor_type)
 neighbor_type = "def2Neighbors"
-current_best_n= [ 15    28    27    20    83    64    59    65] 
-[min_ConNP,min_servers,execution_time] = BestSAHCConNP(current_best_n, neighbor_type)
-current_best_n= [5    36    19    11    62    83    51    21    67    66]
-[min_ConNP,min_servers,execution_time] = BestSAHCConNP(current_best_n, neighbor_type)
+[min_ConNP,min_servers,execution_time] = BestSAHCConNP(neighbor_type)
