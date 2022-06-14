@@ -1,5 +1,0 @@
-function [s] = untitled2()
-s = [];
-for i=1:n;
-end
-
