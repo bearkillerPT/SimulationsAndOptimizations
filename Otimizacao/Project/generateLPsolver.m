@@ -1,4 +1,4 @@
-function generateLPsolver(n)
+function generateLPsolver(n, N)
     [Nodes,Links,L]= generateTopology(88194);
     fid = fopen('CND.lpt', 'wt');
     fprintf(fid, 'min ');
@@ -28,9 +28,16 @@ function generateLPsolver(n)
                 fprintf(fid, 'u%d_%d >= u%d_%d + u%d_%d - 1 + v%d\n', i, j, i, k, k, j, k);
             end
 
-            fprintf(fid, 'u%d_%d >= 0\n', i, j);
         end
 
+    end
+
+    fprintf(fid, '\nBounds\n');
+
+    for i =1:n
+        for j=1:n
+            fprintf(fid, 'u%d_%d >= 0\n', i, j);
+        end
     end
 
     fprintf(fid, '\nbinary\n');
