@@ -4,7 +4,7 @@
     %a neighbor node from the set s is chosen.
     function [best_servers, best_ConNP] = GRASP(n, search_time, neighbor_type)
     t=tic;
-    [Nodes, Links, L] = generateTopology(88194);
+    L= load('L_88194.txt');
     G=graph(L);
     [best_s] = GreedyRandomized(G, n-1);
     [best_servers] = AdaptativeSearch(G, servers, neighbor_type);
