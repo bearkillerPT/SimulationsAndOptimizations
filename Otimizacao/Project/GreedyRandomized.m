@@ -6,7 +6,7 @@ function [s] = GreedyRandomized(G, n, r)
         R = [];
 
         for j = E
-            R = [R; j AverageSP(G, [s j])];
+            R = [R; j ConnectedNP(G, [s j])];
         end
 
         R = sortrows(R, 2);
