@@ -1,10 +1,10 @@
 function [min_ConNP,min_servers,execution_time] = BestSAHCConNP(neighbor_type)
 t=tic;
-L= load('L2.txt');
+L= load('L_88194.txt');
 G=graph(L);
 N = numnodes(G);
 n = 10;
-servers= randomperm (N, n);
+servers= randperm (N, n);
 min_ConNP = ConnectedNP(G,servers);
 improved = true;
 while improved

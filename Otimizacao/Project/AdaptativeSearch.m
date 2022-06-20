@@ -9,7 +9,7 @@ function [min_servers] = AdaptativeSearch(G, servers, neighbor_type)
     end
 
     for other = others_connp
-        servers_connp = [next_servers other];
+        servers_connp = [servers other];
         ConNP = ConnectedNP(G, servers_connp);
 
         if (ConNP < min_ConNP)

@@ -5,8 +5,12 @@ function generateLPsolver(n, N)
 
     for i = 1:N - 1
 
-        for j = i:N
-            fprintf(fid, '+ u%d_%d ', i, j);
+        for j = i + 1:N
+
+            if L (i, j) > 0
+                fprintf(fid, '+ u%d_%d ', i, j);
+            end
+
         end
 
     end
@@ -28,13 +32,17 @@ function generateLPsolver(n, N)
 
     end
 
-    for i = 1:N - 2
+    for i = 1:N - 1
 
-        for k = i + 1:N - 1
+        for j = i + 1:N
 
-            for j = k + 1:N
+            if L(i, j) == 0
 
-                fprintf(fid, 'u%d_%d - u%d_%d - u%d_%d - v%d >= -1\n', i, j, i, k, k, j, k);
+                for k = find(L(i, :) > 0)
+
+                    fprintf(fid, 'u%d_%d - u%d_%d - u%d_%d - v%d >= -1\n', i, j, i, k, k, j, k);
+                end
+
             end
 
         end
@@ -43,9 +51,9 @@ function generateLPsolver(n, N)
 
     fprintf(fid, '\nBounds\n');
 
-    for i = 1:N
+    for i = 1:N - 1
 
-        for j = 1:N
+        for j = i + 1:N
             fprintf(fid, 'u%d_%d >= 0\n', i, j);
         end
 
@@ -55,8 +63,11 @@ function generateLPsolver(n, N)
 
     for i = 1:N
         fprintf(fid, 'v%d ', i);
+        for j = i + 1:N
+            fprintf(fid, 'u%d_%d ', i,j);
+    
+        end
     end
-
     fprintf(fid, '\nend');
     fclose(fid);
 end

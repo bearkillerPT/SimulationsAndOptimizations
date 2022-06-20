@@ -6,16 +6,16 @@
     t=tic;
     L= load('L_88194.txt');
     G=graph(L);
-    [best_s] = GreedyRandomized(G, n-1);
-    [best_servers] = AdaptativeSearch(G, servers, neighbor_type);
-    best_ConNP = ConnectedNP(G, servers_connp);
+    [best_servers] = GreedyRandomized(G, n-1, 4);
+    [best_servers] = AdaptativeSearch(G, best_servers, neighbor_type);
+    best_ConNP = ConnectedNP(G, best_servers);
     while toc(t)<search_time
-        [s] = GreedyRandomized(G, n-1);
+        [servers] = GreedyRandomized(G, n-1, 4);
         [servers] = AdaptativeSearch(G, servers, neighbor_type);
         conNP = ConnectedNP(G, servers);
         if conNP<best_ConNP
          best_servers=servers;
-         min_ConNP=conNP;
+         best_ConNP=conNP;
         end
     end
 end

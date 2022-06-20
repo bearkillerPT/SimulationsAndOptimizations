@@ -53,5 +53,6 @@ function [Nodes,Links,L]= generateTopology(num)
     L= zeros(nNodes);
     for i= 1:size(Links,1)
         L(Links(i,1),Links(i,2))= Ltotal(Links(i,1),Links(i,2));
+        L(Links(i,2),Links(i,1))= Ltotal(Links(i,1),Links(i,2));
     end
 end

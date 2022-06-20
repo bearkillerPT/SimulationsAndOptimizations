@@ -1,4 +1,4 @@
-function [s] = GreedyRandomized(G, n)
+function [s] = GreedyRandomized(G, n, r)
     E= 1:numnodes(G);
     s = [];
 
