@@ -1,6 +1,6 @@
 function generateLPsolver(n, N)
-    [Nodes, Links, L] = generateTopology(88194);
-    fid = fopen('CND.lpt', 'wt');
+    L=load('L_88194.txt');
+    fid = fopen('CND.lpt', 'w');
     fprintf(fid, 'min ');
 
     for i = 1:N - 1
@@ -26,7 +26,10 @@ function generateLPsolver(n, N)
     for i = 1:N - 1
 
         for j = i + 1:N
-            fprintf(fid, 'u%d_%d + v%d + v%d >= 1\n', i, j, i, j);
+
+            if L(i, j) ~= 0
+                fprintf(fid, 'u%d_%d + v%d + v%d >= 1\n', i, j, i, j);
+            end
 
         end
 
@@ -40,7 +43,11 @@ function generateLPsolver(n, N)
 
                 for k = find(L(i, :) > 0)
 
-                    fprintf(fid, 'u%d_%d - u%d_%d - u%d_%d - v%d >= -1\n', i, j, i, k, k, j, k);
+                    if L(i, k) ~= 0 && L(k, j) ~= 0
+                        fprintf(fid, 'u%d_%d - u%d_%d - u%d_%d - v%d >= -1\n', i, j, i, k, k, j, k); 
+                        %Tested without - v[k] and obtained the same result 
+                    end
+
                 end
 
             end
@@ -49,12 +56,16 @@ function generateLPsolver(n, N)
 
     end
 
-    fprintf(fid, '\nBounds\n');
-
+    
     for i = 1:N - 1
 
         for j = i + 1:N
-            fprintf(fid, 'u%d_%d >= 0\n', i, j);
+
+            if L(i, j) ~= 0
+                ij_val = num2str(L(i, j),'%.4f');
+                fprintf(fid, 'u%d_%d = %s\n', i, j, ij_val);
+            end
+
         end
 
     end
@@ -63,11 +74,10 @@ function generateLPsolver(n, N)
 
     for i = 1:N
         fprintf(fid, 'v%d ', i);
-        for j = i + 1:N
-            fprintf(fid, 'u%d_%d ', i,j);
-    
-        end
     end
+
+
+
     fprintf(fid, '\nend');
     fclose(fid);
 end

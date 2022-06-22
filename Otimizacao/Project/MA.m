@@ -25,7 +25,7 @@ function [best_servers, best_ConNP] = MA(n, search_time, neighbor_type, populati
 
         end
 
-        [P] = selection(G, P, new_P)
+        [P] = selection(G, P, new_P);
     end
 
     [best_servers] = getBestServer(G, P);
