@@ -1,8 +1,8 @@
-function generateLPsolver(n, N)
+function generateLPsolver(n)
     L = load('L_88194.txt');
     fid = fopen('CND.lpt', 'w');
     fprintf(fid, 'min ');
-
+    N = numnodes(G);
     for i = 1:N - 1
 
         for j = i + 1:N

@@ -1,5 +1,4 @@
-function [best_servers, best_ConNP] = MA(n, search_time, neighbor_type, population_size, mutation_prob)
-    t = tic;
+function [best_servers, best_ConNP, best_servers_time] = MA(n, search_time, neighbor_type, population_size, mutation_prob)
     L = load('L_88194.txt');
     G = graph(L);
     P = [];
@@ -9,6 +8,10 @@ function [best_servers, best_ConNP] = MA(n, search_time, neighbor_type, populati
         [best_servers] = LocalSearch(G, best_servers, neighbor_type);
         P(i, :) = best_servers;
     end
+    t = tic;
+    [best_servers] = getBestServer(G, P);
+    best_ConNP = ConnectedNP(G, best_servers);
+    best_servers_time = toc(t);
 
     while toc(t) < search_time
         new_P = [];
@@ -26,10 +29,14 @@ function [best_servers, best_ConNP] = MA(n, search_time, neighbor_type, populati
         end
 
         [P] = selection(G, P, new_P);
+        [current_best_servers] = getBestServer(G, P);
+        current_best_ConNP = ConnectedNP(G, current_best_servers);
+        if current_best_ConNP < best_ConNP
+            best_servers = current_best_servers;
+            best_ConNP = current_best_ConNP;
+            best_servers_time = toc(t);
+        end
     end
-
-    [best_servers] = getBestServer(G, P);
-    best_ConNP = ConnectedNP(G, best_servers);
 end
 
 function [p1, p2] = chooseparents(G, P)
