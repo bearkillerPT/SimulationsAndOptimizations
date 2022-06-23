@@ -2,7 +2,7 @@
     %a neighbor node is any node that is not in s;
 %else 
     %a neighbor node from the set s is chosen.
-    function [best_servers, best_ConNP] = GRASP(n, search_time, neighbor_type)
+    function [best_servers, best_ConNP, best_servers_time] = GRASP(n, search_time, neighbor_type)
     t=tic;
     L= load('L_88194.txt');
     G=graph(L);
