@@ -7,9 +7,7 @@ function generateLPsolver(n, N)
 
         for j = i + 1:N
 
-            if L (i, j) > 0
                 fprintf(fid, '+ u%d_%d ', i, j);
-            end
 
         end
 
