@@ -9,13 +9,15 @@
     [best_servers] = GreedyRandomized(G, n-1, 4);
     [best_servers] = AdaptativeSearch(G, best_servers, neighbor_type);
     best_ConNP = ConnectedNP(G, best_servers);
+    best_servers_time = toc(t);
     while toc(t)<search_time
         [servers] = GreedyRandomized(G, n-1, 4);
         [servers] = AdaptativeSearch(G, servers, neighbor_type);
         conNP = ConnectedNP(G, servers);
         if conNP<best_ConNP
          best_servers=servers;
-         best_ConNP=conNP;
+         best_ConNP=conNP
+         best_servers_time=toc(t);
         end
     end
 end
